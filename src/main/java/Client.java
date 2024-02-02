@@ -22,12 +22,13 @@ public class Client {
 
 class SimpleClient extends Thread{
 
-    private final String[] COMMANDS = {"Hello" ,"Good morning", "Good night", "CRAZY"};
+    private final Commands[] COMMANDS = Commands.values();
 
     private int cmdNumber;
 
     public SimpleClient(int cmdNumber) {
         this.cmdNumber = cmdNumber;
+
     }
 
     @Override
@@ -42,14 +43,23 @@ class SimpleClient extends Thread{
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            String command = COMMANDS[cmdNumber % COMMANDS.length];
             String name = "Danil";
+            int idCommand = cmdNumber % COMMANDS.length;
+            Commands command = COMMANDS[idCommand];
 
-            stringBuilder.append(command).append(" ").append(name);
+            stringBuilder.append(idCommand).append(" ")
+                    .append(command.toString()).append(" ")
+                    .append(name);
 
+            System.out.println(stringBuilder.toString());
             bw.write(stringBuilder.toString());
+            bw.flush();
             bw.newLine();
-            bw.flush(); // отправить данные
+
+
+
+        //    stringBuilder.append(command).append(" ").append(name);
+
 
             String  answer = br.readLine();
             System.out.println("Client got string: " + answer);

@@ -27,6 +27,7 @@ class SimpleServer extends Thread{
 
     public SimpleServer(Socket socket) {
         this.socket = socket;
+        run();
     }
 
     @Override
@@ -49,14 +50,19 @@ class SimpleServer extends Thread{
             String request = br.readLine();
             String[] lines = request.split("\\s+");
 
-            String commands = lines[0];
-            String userNames = lines[1];
-
-            System.out.println("Server got string 1: " + commands);
-            System.out.println("Server got string 2: " + userNames);
 
 
-            String response = buildRespons(commands, userNames);
+            Integer IDcommand = Integer.parseInt(lines[0]);
+            String userCommand = lines[1];
+            String userName = lines[2];
+
+            System.out.println("Server got string 1: " + IDcommand);
+            System.out.println("Server got string 2: " + userCommand);
+            System.out.println("Server got string 2: " + userName);
+            System.out.println();
+
+
+            String response = buildResponse(IDcommand, userName);
 
             bw.write(response);
             bw.newLine();
@@ -72,14 +78,9 @@ class SimpleServer extends Thread{
         }
     }
 
-    private  String buildRespons(String commands, String userNames) {
-        switch (commands){
-            case "Hello" : return commands + " " + userNames;
-            case "Good morning" : return commands + " " + userNames;
-            case "Good night" : return commands + " " + userNames;
-            case "CRAZY" : return commands + " " + userNames;
-            default: return "Такой команды нет";
-        }
-
+    private String buildResponse(Integer idCommand, String userNames) {
+       StringBuilder textServer = new StringBuilder();
+       Commands commands = Commands.values()[idCommand];
+       return textServer.append(commands.toString()).append(" ").append(userNames).toString();
     }
 }
