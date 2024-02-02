@@ -49,13 +49,12 @@ class SimpleClient extends Thread{
 
             stringBuilder.append(idCommand).append(" ")
                     .append(command.toString()).append(" ")
-                    .append(name);
+                    .append(name).append(" ").append(cmdNumber);
 
-            System.out.println(stringBuilder.toString());
+
             bw.write(stringBuilder.toString());
-            bw.flush();
             bw.newLine();
-
+            bw.flush();
 
 
         //    stringBuilder.append(command).append(" ").append(name);
@@ -68,8 +67,6 @@ class SimpleClient extends Thread{
             bw.close();
 
 
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

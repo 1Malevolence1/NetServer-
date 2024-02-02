@@ -22,7 +22,7 @@ public class Server {
 }
 
 
-class SimpleServer extends Thread{
+class SimpleServer extends Thread {
     private Socket socket;
 
     public SimpleServer(Socket socket) {
@@ -31,7 +31,7 @@ class SimpleServer extends Thread{
     }
 
     @Override
-    public void run(){
+    public void run() {
         try {
             handleRequest(socket);
         } catch (IOException e) {
@@ -40,25 +40,26 @@ class SimpleServer extends Thread{
     }
 
 
-    private  void handleRequest(Socket client) throws IOException {
+    private void handleRequest(Socket client) throws IOException {
         try {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream())); // Входной поток
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream())); // выходной поток
 
-
             String request = br.readLine();
-            String[] lines = request.split("\\s+");
 
+            String[] lines = request.split("\\s+");
 
 
             Integer IDcommand = Integer.parseInt(lines[0]);
             String userCommand = lines[1];
             String userName = lines[2];
+            String number = lines[3];
 
             System.out.println("Server got string 1: " + IDcommand);
             System.out.println("Server got string 2: " + userCommand);
-            System.out.println("Server got string 2: " + userName);
+            System.out.println("Server got string 3: " + userName);
+            System.out.println("Server got string 4: " + number);
             System.out.println();
 
 
@@ -79,8 +80,10 @@ class SimpleServer extends Thread{
     }
 
     private String buildResponse(Integer idCommand, String userNames) {
-       StringBuilder textServer = new StringBuilder();
-       Commands commands = Commands.values()[idCommand];
-       return textServer.append(commands.toString()).append(" ").append(userNames).toString();
+        StringBuilder textServer = new StringBuilder();
+        if (idCommand <= Commands.values().length) {
+            Commands commands = Commands.values()[idCommand];
+            return textServer.append(commands.toString()).append(" ").append(userNames).toString();
+        } else return textServer.append("Такой команды нет").toString();
     }
 }
