@@ -22,7 +22,7 @@ public class Client {
 
 class SimpleClient extends Thread{
 
-    private final String[] COMMANDS = {"Hello" ,"Good morning", "Good night", "CRAZY"};
+    private final String[] COMMANDS = {"HELLO" ,"HEY", "Good night", "CRAZY"};
 
     private int cmdNumber;
 
