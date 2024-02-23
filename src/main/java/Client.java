@@ -1,4 +1,6 @@
 
+import config.Config;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -35,7 +37,7 @@ class SimpleClient extends Thread{
 
         try {
 
-            Socket client = new Socket("192.168.1.68", 25255);
+            Socket client = new Socket(Config.IP, 25255);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream())); // Входной поток
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream())); // выходной поток
